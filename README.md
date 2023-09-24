@@ -11,49 +11,60 @@ All datasets can be downloaded by torchvision.dataset without extra effort, exce
 This project is implemented based on Python 3.6, PyTorch 1.1.0, and torchvision 0.3.0.
 The rest required packages may not necessarily have to match exactly.  
 
-`matplotlib==3.3.4`  
-`mne==0.23.4`  
-`numpy==1.16.4`  
-`pandas==1.1.5`  
-`scikit_learn==0.24.2`  
-`scipy==1.5.4`  
-`seaborn==0.11.1`  
-`tqdm==4.64.0`  
+```
+matplotlib==3.3.4
+mne==0.23.4
+numpy==1.16.4  
+pandas==1.1.5  
+scikit_learn==0.24.2 
+scipy==1.5.4 
+seaborn==0.11.1  
+tqdm==4.64.0  
+```
 
 ## Command lines
 Please refer to the following specifications to train different flow models on different in-distribution dataset.
 ### Training simple models:  
-`python3 main.py  --dataset fmnist  --lr 0.00001  --ind fmnist  --estimator GLOW --Train --epochs 201 --K 3 --num_blocks 2  --hidden_size 64  --batch_size 64`  
-`python3 main.py  --dataset fmnist  --lr 0.000001  --ind fmnist --estimator REALNVP  --Train  --epochs 51   --num_blocks 1  --hidden_size 512`  
-`python3 main.py  --dataset cifar10  --lr 0.001  --ind cifar10  --estimator GLOW --Train --epochs 2 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64`  
-`python3 main.py  --dataset cifar10  --lr 0.00001  --ind cifar10 --estimator REALNVP  --Train  --epochs 100  --num_blocks 1  --hidden_size 2048`  
-`python3 main.py  --dataset cifar100  --lr 0.001  --ind cifar100  --estimator GLOW --Train --epochs 5 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64`   
-`python3 main.py  --dataset cifar100  --lr 0.00001  --ind cifar100 --estimator REALNVP  --Train  --epochs 50  --num_blocks 1  --hidden_size 2048`  
-`python3 main.py  --dataset svhn  --lr 0.001  --ind svhn  --estimator GLOW --Train --epochs 200 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64`   
-`python3 main.py  --dataset svhn  --lr 0.00001  --ind svhn --estimator REALNVP  --Train  --epochs 100  --num_blocks 1  --hidden_size 2048`  
-`python3 main.py  --dataset celeba  --lr 0.001  --ind celeba  --estimator GLOW --Train --epochs 200 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64`   
-`python3 main.py  --dataset celeba  --lr 0.00001  --ind celeba --estimator REALNVP  --Train  --epochs 50  --num_blocks 1  --hidden_size 2048`  
+```
+python3 main.py  --dataset fmnist  --lr 0.00001  --ind fmnist  --estimator GLOW --Train --epochs 201 --K 3 --num_blocks 2  --hidden_size 64  --batch_size 64  
+python3 main.py  --dataset fmnist  --lr 0.000001  --ind fmnist --estimator REALNVP  --Train  --epochs 51   --num_blocks 1  --hidden_size 512  
+python3 main.py  --dataset cifar10  --lr 0.001  --ind cifar10  --estimator GLOW --Train --epochs 2 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64  
+python3 main.py  --dataset cifar10  --lr 0.00001  --ind cifar10 --estimator REALNVP  --Train  --epochs 100  --num_blocks 1  --hidden_size 2048  
+python3 main.py  --dataset cifar100  --lr 0.001  --ind cifar100  --estimator GLOW --Train --epochs 5 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64   
+python3 main.py  --dataset cifar100  --lr 0.00001  --ind cifar100 --estimator REALNVP  --Train  --epochs 50  --num_blocks 1  --hidden_size 2048  
+python3 main.py  --dataset svhn  --lr 0.001  --ind svhn  --estimator GLOW --Train --epochs 200 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64   
+python3 main.py  --dataset svhn  --lr 0.00001  --ind svhn --estimator REALNVP  --Train  --epochs 100  --num_blocks 1  --hidden_size 2048  
+python3 main.py  --dataset celeba  --lr 0.001  --ind celeba  --estimator GLOW --Train --epochs 200 --K 3 --num_blocks 3 --hidden_size 64  --batch_size 64   
+python3 main.py  --dataset celeba  --lr 0.00001  --ind celeba --estimator REALNVP  --Train  --epochs 50  --num_blocks 1  --hidden_size 2048
+```
 ### Training complex models:
-`python3 main.py  --dataset cifar10  --lr 0.001  --ind cifar10  --estimator GLOW --Train --epochs 201 --K 16 --num_blocks 3 --hidden_size 128  --batch_size 64`    
-`python3 main.py  --dataset celeba  --lr 0.00001  --ind celeba  --estimator REALNVP  --Train  --epochs 201  --num_blocks 16  --hidden_size 512  --log_step 10`  
-
+```
+python3 main.py  --dataset cifar10  --lr 0.001  --ind cifar10  --estimator GLOW --Train --epochs 201 --K 16 --num_blocks 3 --hidden_size 128  --batch_size 64    
+python3 main.py  --dataset celeba  --lr 0.00001  --ind celeba  --estimator REALNVP  --Train  --epochs 201  --num_blocks 16  --hidden_size 512  --log_step 10  
+```
 ### Testing
 Our main results are all based on simple flow models. To reproduce our main results, run the following example commands for CIFAR10/SVHN pairs with batch size = 10 (for other dataset pairs you can simply parse different dataset names to --dataset and --ind):  
 #### Table 1 and 5
-`python3 main.py --dataset svhn  --ind cifar10  --estimator REALNVP  --Test  --num_blocks 1 --hidden_size 2048  --kst_rule  --batch_size 10  --num_project 50`  
-`python3 main.py --dataset svhn  --ind cifar10  --estimator REALNVP  --Test  --num_blocks 1 --hidden_size 2048  --klod  --batch_size 10`  
-`python3 main.py --dataset svhn  --ind cifar10  --estimator REALNVP  --Test  --num_blocks 1 --hidden_size 2048  --typical  --batch_size 10`  
+```
+python3 main.py --dataset svhn  --ind cifar10  --estimator REALNVP  --Test  --num_blocks 1 --hidden_size 2048  --kst_rule  --batch_size 10  --num_project 50  
+python3 main.py --dataset svhn  --ind cifar10  --estimator REALNVP  --Test  --num_blocks 1 --hidden_size 2048  --klod  --batch_size 10  
+python3 main.py --dataset svhn  --ind cifar10  --estimator REALNVP  --Test  --num_blocks 1 --hidden_size 2048  --typical  --batch_size 10
+```
 #### Table 6  
-`python3 main.py  --dataset svhn  --ind cifar10  --estimator GLOW --Test  --K 3 --num_blocks 3 --hidden_size 64  --kst_rule  --batch_size 10  --num_project 200`  
-`python3 main.py  --dataset svhn  --ind cifar10  --estimator GLOW --Test  --K 3 --num_blocks 3 --hidden_size 64  --klod  --batch_size 10`  
-`python3 main.py  --dataset svhn  --ind cifar10  --estimator GLOW --Test  --K 3 --num_blocks 3 --hidden_size 64  --typical  --batch_size 10`
+```
+python3 main.py  --dataset svhn  --ind cifar10  --estimator GLOW --Test  --K 3 --num_blocks 3 --hidden_size 64  --kst_rule  --batch_size 10  --num_project 200  
+python3 main.py  --dataset svhn  --ind cifar10  --estimator GLOW --Test  --K 3 --num_blocks 3 --hidden_size 64  --klod  --batch_size 10  
+python3 main.py  --dataset svhn  --ind cifar10  --estimator GLOW --Test  --K 3 --num_blocks 3 --hidden_size 64  --typical  --batch_size 10
+```
 
 ### Generating images
 If you set --log_step 10 (or other steps for saving models), you can generate images by loading differently trained models as follows (the default num_epochs is -1, which means the last training epoch):  
-`python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 10`  
-`python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 100`  
-`python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 150`  
-`python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 200`  
+```
+python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 10  
+python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 100  
+python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 150  
+python3 generateImgs.py --dataset celeba  --ind celeba --estimator REALNVP  --num_blocks 16  --hidden_size 512  --num_epochs 200
+```
 
 ## Reference
 The PyTorch implementation of models used in this project is based on existing public code repo:
